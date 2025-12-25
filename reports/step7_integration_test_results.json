@@ -1,0 +1,61 @@
+{
+  "test_date": "2025-12-24T05:18:45.753875",
+  "server_path": "/home/xux/Desktop/NucleicMCP/NucleicMCP/tool-mcps/rnafm_mcp/src/server.py",
+  "env_python": "/home/xux/Desktop/NucleicMCP/NucleicMCP/tool-mcps/rnafm_mcp/env/bin/python",
+  "tests": {
+    "server_startup": {
+      "status": "passed",
+      "output": "Import successful\n",
+      "error": null
+    },
+    "sync_tool_extract_rna_embeddings": {
+      "status": "failed",
+      "params": {
+        "input_file": "examples/data/example.fasta",
+        "use_mock": true
+      },
+      "output": "ERROR: 'str' object has no attribute 'name'\n",
+      "error": "2025-12-24 05:18:47.884 | INFO     | jobs.manager:__init__:32 - JobManager initialized with jobs_dir: /home/xux/Desktop/NucleicMCP/NucleicMCP/tool-mcps/rnafm_mcp/jobs\nTraceback (most recent call last):\n  File \"<string>\", line 11, in test_tool\nAttributeError: 'str' object has no attribute 'name'\n"
+    },
+    "sync_tool_predict_secondary_structure": {
+      "status": "failed",
+      "params": {
+        "input_file": "examples/data/example.fasta",
+        "use_mock": true
+      },
+      "output": "ERROR: 'str' object has no attribute 'name'\n",
+      "error": "2025-12-24 05:18:49.007 | INFO     | jobs.manager:__init__:32 - JobManager initialized with jobs_dir: /home/xux/Desktop/NucleicMCP/NucleicMCP/tool-mcps/rnafm_mcp/jobs\nTraceback (most recent call last):\n  File \"<string>\", line 11, in test_tool\nAttributeError: 'str' object has no attribute 'name'\n"
+    },
+    "sync_tool_classify_rna_sequences": {
+      "status": "failed",
+      "params": {
+        "input_file": "examples/data/example.fasta",
+        "use_mock": true,
+        "num_clusters": 2
+      },
+      "output": "ERROR: 'str' object has no attribute 'name'\n",
+      "error": "2025-12-24 05:18:50.138 | INFO     | jobs.manager:__init__:32 - JobManager initialized with jobs_dir: /home/xux/Desktop/NucleicMCP/NucleicMCP/tool-mcps/rnafm_mcp/jobs\nTraceback (most recent call last):\n  File \"<string>\", line 11, in test_tool\nAttributeError: 'str' object has no attribute 'name'\n"
+    },
+    "submit_workflow_submit_rna_embeddings": {
+      "status": "failed",
+      "phase": "submit",
+      "error": "2025-12-24 05:18:51.242 | INFO     | jobs.manager:__init__:32 - JobManager initialized with jobs_dir: /home/xux/Desktop/NucleicMCP/NucleicMCP/tool-mcps/rnafm_mcp/jobs\nTraceback (most recent call last):\n  File \"<string>\", line 3, in <module>\nTypeError: 'FunctionTool' object is not callable\n"
+    },
+    "submit_workflow_submit_secondary_structure": {
+      "status": "failed",
+      "phase": "submit",
+      "error": "2025-12-24 05:18:52.355 | INFO     | jobs.manager:__init__:32 - JobManager initialized with jobs_dir: /home/xux/Desktop/NucleicMCP/NucleicMCP/tool-mcps/rnafm_mcp/jobs\nTraceback (most recent call last):\n  File \"<string>\", line 3, in <module>\nTypeError: 'FunctionTool' object is not callable\n"
+    },
+    "error_handling": {
+      "status": "failed",
+      "output": ""
+    }
+  },
+  "issues": [],
+  "summary": {
+    "total_tests": 7,
+    "passed": 1,
+    "failed": 6,
+    "pass_rate": "14.3%"
+  }
+}

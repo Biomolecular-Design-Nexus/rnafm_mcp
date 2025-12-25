@@ -1,0 +1,206 @@
+{
+  "project_name": "RNA-FM",
+  "description": "RNA sequence analysis tools powered by RNA Foundation Models, accessible via Model Context Protocol (MCP)",
+  "tools": [
+    {
+      "name": "extract_rna_embeddings",
+      "type": "sync",
+      "description": "Extract 640-dimensional embeddings from RNA sequences using RNA-FM",
+      "example_prompt": "Extract RNA embeddings from @examples/data/example.fasta using mock mode"
+    },
+    {
+      "name": "predict_secondary_structure",
+      "type": "sync",
+      "description": "Predict RNA base-pairing patterns and secondary structures",
+      "example_prompt": "Predict secondary structure for @examples/data/RF00001.fasta with threshold 0.6"
+    },
+    {
+      "name": "classify_rna_sequences",
+      "type": "sync",
+      "description": "Classify and cluster RNA sequences by functional families using embeddings + K-means",
+      "example_prompt": "Classify RNA sequences in @examples/data/RF00005.fasta into 3 functional clusters using mock embeddings"
+    },
+    {
+      "name": "submit_rna_embeddings",
+      "type": "submit",
+      "description": "Large-scale embeddings extraction for background processing",
+      "example_prompt": "Submit RNA embedding extraction for @examples/data/format_rnacentral_active.100.sample-Max50.fasta"
+    },
+    {
+      "name": "submit_secondary_structure",
+      "type": "submit",
+      "description": "Large-scale structure prediction for background processing",
+      "example_prompt": "Submit secondary structure prediction for large dataset with threshold 0.5"
+    },
+    {
+      "name": "submit_rna_classification",
+      "type": "submit",
+      "description": "Large-scale RNA classification for background processing",
+      "example_prompt": "Submit RNA classification for @examples/data/format_rnacentral_active.100.sample-Max50.fasta with 5 clusters"
+    },
+    {
+      "name": "submit_batch_rna_analysis",
+      "type": "submit",
+      "description": "Process multiple files with comprehensive analysis (embeddings + structure + classification)",
+      "example_prompt": "Submit batch RNA analysis for files: @examples/data/RF00001.fasta, @examples/data/RF00005.fasta with all analysis types"
+    },
+    {
+      "name": "get_job_status",
+      "type": "job_mgmt",
+      "description": "Check job progress and current status",
+      "example_prompt": "Check status of job abc123"
+    },
+    {
+      "name": "get_job_result",
+      "type": "job_mgmt",
+      "description": "Get results when job completed",
+      "example_prompt": "Get results for completed job abc123"
+    },
+    {
+      "name": "get_job_log",
+      "type": "job_mgmt",
+      "description": "View execution logs with tail option",
+      "example_prompt": "Get job log for abc123 with tail 100"
+    },
+    {
+      "name": "cancel_job",
+      "type": "job_mgmt",
+      "description": "Cancel running job",
+      "example_prompt": "Cancel job abc123"
+    },
+    {
+      "name": "list_jobs",
+      "type": "job_mgmt",
+      "description": "List all jobs with status filter",
+      "example_prompt": "List all running jobs"
+    }
+  ],
+  "scripts": [
+    {
+      "name": "rna_embeddings.py",
+      "description": "Extract 640-dimensional embeddings from RNA sequences using RNA-FM or mock generation",
+      "example_command": "python scripts/rna_embeddings.py --input examples/data/example.fasta --output results/embeddings --use-mock"
+    },
+    {
+      "name": "secondary_structure.py",
+      "description": "Predict RNA secondary structure (base-pairing patterns) using RNA-FM + ResNet or mock generation",
+      "example_command": "python scripts/secondary_structure.py --input examples/data/example.fasta --output results/structures --use-mock --threshold 0.5"
+    },
+    {
+      "name": "rna_classification.py",
+      "description": "Classify and cluster RNA sequences by functional families using embeddings + K-means clustering",
+      "example_command": "python scripts/rna_classification.py --input examples/data/RF00005.fasta --output results/classification --clusters 3 --use-mock"
+    }
+  ],
+  "demo_data": [
+    {
+      "file": "example.fasta",
+      "description": "Basic RNA sequences for testing (3 sequences)",
+      "used_by": ["extract_rna_embeddings", "predict_secondary_structure", "classify_rna_sequences", "all scripts"]
+    },
+    {
+      "file": "RF00001.fasta",
+      "description": "5S ribosomal RNA family sequences",
+      "used_by": ["predict_secondary_structure", "classify_rna_sequences"]
+    },
+    {
+      "file": "RF00005.fasta",
+      "description": "tRNA family sequences (954 sequences)",
+      "used_by": ["classify_rna_sequences", "rna_classification.py"]
+    },
+    {
+      "file": "RF00010.fasta",
+      "description": "RNase P RNA sequences",
+      "used_by": ["predict_secondary_structure", "classify_rna_sequences"]
+    },
+    {
+      "file": "format_rnacentral_active.100.sample-Max50.fasta",
+      "description": "Large RNA dataset for batch processing (100 sequences)",
+      "used_by": ["submit_batch_rna_analysis", "submit_rna_classification"]
+    },
+    {
+      "file": "extract_embedding.yml",
+      "description": "RNA-FM embedding configuration reference",
+      "used_by": ["Configuration reference"]
+    },
+    {
+      "file": "ss_prediction.yml",
+      "description": "Structure prediction configuration reference",
+      "used_by": ["Configuration reference"]
+    }
+  ],
+  "configs": [
+    {
+      "file": "rna_embeddings_config.json",
+      "description": "Embeddings extraction settings",
+      "parameters": {
+        "embedding_dim": 640,
+        "device": "cuda",
+        "batch_size": 8,
+        "normalize": false,
+        "use_mock": false,
+        "nucleotide_bias": {"A": 0.1, "U": 0.2, "G": 0.3, "C": 0.4}
+      }
+    },
+    {
+      "file": "secondary_structure_config.json",
+      "description": "Structure prediction settings",
+      "parameters": {
+        "threshold": 0.5,
+        "min_loop_length": 3,
+        "formats": ["npy", "txt", "ct"]
+      }
+    },
+    {
+      "file": "rna_classification_config.json",
+      "description": "Classification and clustering settings",
+      "parameters": {
+        "num_clusters": 3,
+        "pca_components": 50,
+        "pool_method": "mean"
+      }
+    }
+  ],
+  "environments": {
+    "main": {
+      "path": "./env",
+      "python": "3.10",
+      "purpose": "MCP server operations",
+      "key_packages": ["fastmcp", "loguru", "pandas", "numpy", "tqdm"]
+    },
+    "legacy": {
+      "path": "./env_py38",
+      "python": "3.8.11",
+      "purpose": "RNA-FM model loading and inference",
+      "key_packages": ["pytorch", "cudatoolkit", "biopython", "scikit-learn"]
+    }
+  },
+  "features": [
+    "RNA sequence embeddings (640-dimensional contextual representations)",
+    "Secondary structure prediction (base-pairing patterns with probability matrices)",
+    "RNA classification (functional clustering and family classification)",
+    "Job management (submit long-running tasks with progress tracking)",
+    "Batch processing (process multiple files simultaneously)",
+    "Mock mode (fast fallback generation for testing without GPU requirements)"
+  ],
+  "installation": {
+    "package_manager": "mamba (preferred) or conda",
+    "strategy": "dual environment setup",
+    "main_command": "mamba create -p ./env python=3.10 -y && mamba activate ./env && pip install fastmcp loguru pandas numpy tqdm",
+    "legacy_command": "mamba create -p ./env_py38 python=3.8.11 pytorch=1.9.0 cudatoolkit=11.1.1 -c pytorch -c conda-forge -y"
+  },
+  "performance": {
+    "mock_mode_benchmarks": {
+      "rna_embeddings.py": "~0.8s, 4 files (1.09MB) for 3 sequences",
+      "secondary_structure.py": "~0.5s, 7 files (160KB) for 3 sequences",
+      "rna_classification.py": "~2.1s, 5 files (21.2MB) for 954 sequences"
+    }
+  },
+  "claude_code_integration": {
+    "mcp_server_config": {
+      "command": "/home/xux/Desktop/NucleicMCP/NucleicMCP/tool-mcps/rnafm_mcp/env/bin/python",
+      "args": ["/home/xux/Desktop/NucleicMCP/NucleicMCP/tool-mcps/rnafm_mcp/src/server.py"]
+    },
+    "installation_methods": ["fastmcp install", "claude mcp add", "settings.json"]
+  }
+}

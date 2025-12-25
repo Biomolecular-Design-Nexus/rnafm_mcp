@@ -1,0 +1,30 @@
+{
+  "_description": "Configuration for RNA secondary structure prediction script",
+  "_source": "Extracted from examples/use_case_2_secondary_structure.py",
+
+  "model": {
+    "type": "rnafm_resnet",
+    "variant": "ss",
+    "device": "cuda",
+    "fallback_device": "cpu"
+  },
+
+  "prediction": {
+    "threshold": 0.5,
+    "min_loop_length": 3,
+    "use_mock": false
+  },
+
+  "output": {
+    "formats": ["npy", "txt", "ct"],
+    "include_probabilities": true,
+    "include_summary": true
+  },
+
+  "mock_generation": {
+    "baseline_probability": 0.3,
+    "watson_crick_prob_range": [0.3, 0.8],
+    "wobble_pair_prob_range": [0.2, 0.6],
+    "use_deterministic_seed": true
+  }
+}

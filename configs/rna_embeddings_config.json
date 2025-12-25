@@ -1,0 +1,36 @@
+{
+  "_description": "Configuration for RNA embeddings extraction script",
+  "_source": "Extracted from examples/use_case_1_rna_embeddings.py",
+
+  "model": {
+    "type": "rna-fm",
+    "embedding_dim": 640,
+    "device": "cuda",
+    "fallback_device": "cpu"
+  },
+
+  "processing": {
+    "batch_size": 8,
+    "normalize": false,
+    "use_mock": false
+  },
+
+  "output": {
+    "format": "npy",
+    "include_summary": true,
+    "include_metadata": true
+  },
+
+  "mock_generation": {
+    "embedding_dim": 640,
+    "use_deterministic_seed": true,
+    "nucleotide_bias": {
+      "A": 0.1,
+      "U": 0.2,
+      "G": 0.3,
+      "C": 0.4
+    },
+    "positional_encoding_strength": 0.5,
+    "gc_content_bias_strength": 0.3
+  }
+}

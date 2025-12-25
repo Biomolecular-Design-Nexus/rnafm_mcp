@@ -1,0 +1,40 @@
+{
+  "_description": "Configuration for RNA classification and clustering script",
+  "_source": "Extracted from examples/use_case_3_rna_classification.py",
+
+  "model": {
+    "type": "rna-fm",
+    "device": "cuda",
+    "fallback_device": "cpu",
+    "embedding_dim": 640
+  },
+
+  "clustering": {
+    "method": "kmeans",
+    "num_clusters": 3,
+    "pca_components": 50,
+    "random_state": 42,
+    "max_iterations": 100
+  },
+
+  "processing": {
+    "use_mock": false,
+    "pool_method": "mean",
+    "normalize_embeddings": false
+  },
+
+  "output": {
+    "save_embeddings": true,
+    "save_assignments": true,
+    "save_analysis": true,
+    "include_summary": true,
+    "formats": ["json", "npy"]
+  },
+
+  "mock_generation": {
+    "embedding_dim": 640,
+    "use_deterministic_seed": true,
+    "composition_weight": 2.0,
+    "length_weight": 1.0
+  }
+}
